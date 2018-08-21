@@ -1,0 +1,1 @@
+{"type":"Enum","filename":"hello.proto","name":"Greeting","values":{"MISS":3,"MR":1,"MRS":2,"NONE":0}}

@@ -1,0 +1,12 @@
+syntax = "proto3";
+
+enum Greeting {
+    NONE = 0;
+    MR = 1;
+    MRS = 2;
+    MISS = 3;
+}
+message Hello {
+    Greeting greeting = 1;
+    string name = 2;
+}

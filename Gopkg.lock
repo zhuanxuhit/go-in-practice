@@ -10,6 +10,18 @@
   version = "v1.0.6"
 
 [[projects]]
+  digest = "1:b9fef8781a71248ce9f12ec6db509cbe3175e4bef6c6b6037f6c53a7fdd1fe33"
+  name = "github.com/golang/protobuf"
+  packages = [
+    "proto",
+    "protoc-gen-go/descriptor",
+    "protoc-gen-go/plugin",
+  ]
+  pruneopts = "UT"
+  revision = "b4deda0973fb4c70b50d226b1af49f3da59f5265"
+  version = "v1.1.0"
+
+[[projects]]
   branch = "master"
   digest = "1:3f3a05ae0b95893d90b9b3b5afdb79a9b3d96e4e36e099d841ae602e4aca0da8"
   name = "golang.org/x/crypto"
@@ -41,6 +53,8 @@
   analyzer-version = 1
   input-imports = [
     "github.com/Sirupsen/logrus",
+    "github.com/golang/protobuf/proto",
+    "github.com/golang/protobuf/protoc-gen-go/plugin",
     "gopkg.in/urfave/cli.v1",
   ]
   solver-name = "gps-cdcl"

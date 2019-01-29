@@ -1,0 +1,10 @@
+syntax = "proto3";
+
+message Data {
+  string text = 1;
+};
+
+service FormatData {
+  // Sends a greeting
+  rpc DoFormat (Data) returns (Data) {}
+}

@@ -1,0 +1,1 @@
+需求是来源于service采用thrift协议，api采用protobuf，所以需要有个转换，将thrift的数据结构转换为protobuf的结构

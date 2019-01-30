@@ -15,28 +15,8 @@ import (
 )
 
 func SSHPassword() ssh.AuthMethod {
-	return ssh.Password("123456")
+	return ssh.Password("1")
 }
-func SSHPublicKeyFile(file string) ssh.AuthMethod {
-	buffer, err := ioutil.ReadFile(file)
-	if err != nil {
-		fmt.Printf("read %s error. ", file)
-		return nil
-	}
-	key, err := ssh.ParsePrivateKey(buffer)
-	if err != nil {
-		fmt.Printf("ParsePrivateKey %s error. ", file)
-		return nil
-	}
-	return ssh.PublicKeys(key)
-}
-func SSHAgent() ssh.AuthMethod {
-	if sshAgent, err := net.Dial("unix", os.Getenv("SSH_AUTH_SOCK")); err == nil {
-		return ssh.PublicKeysCallback(agent.NewClient(sshAgent).Signers)
-	}
-	return nil
-}
-
 func expandUser(s string) string {
 	env := "HOME"
 	if runtime.GOOS == "windows" {
@@ -63,6 +43,27 @@ func expandUser(s string) string {
 		return os.Getenv(env)
 	})
 }
+
+func SSHPublicKeyFile(file string) ssh.AuthMethod {
+	buffer, err := ioutil.ReadFile(file)
+	if err != nil {
+		fmt.Printf("read %s error. ", file)
+		return nil
+	}
+	key, err := ssh.ParsePrivateKey(buffer)
+	if err != nil {
+		fmt.Printf("ParsePrivateKey %s error. ", file)
+		return nil
+	}
+	return ssh.PublicKeys(key)
+}
+func SSHAgent() ssh.AuthMethod {
+	if sshAgent, err := net.Dial("unix", os.Getenv("SSH_AUTH_SOCK")); err == nil {
+		return ssh.PublicKeysCallback(agent.NewClient(sshAgent).Signers)
+	}
+	return nil
+}
+
 
 type SSHClient struct {
 	Config *ssh.ClientConfig

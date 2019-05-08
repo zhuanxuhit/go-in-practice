@@ -1,0 +1,27 @@
+syntax = "proto3";
+package tutorial;
+
+message XX1Request {
+    string name = 1;
+}
+message XX2Request {
+    string name = 1;
+}
+message Request {
+    XX1Request request1 = 1; // 默认都是 optional
+    XX2Request request2 = 2;
+}
+message XX1Response {
+    string name = 1;
+}
+message XX2Response {
+    string name = 1;
+}
+message Response {
+    XX1Response response1 = 1; // 默认都是 optional
+    XX2Response response2 = 2;
+}
+message Message {
+    Request request = 1;
+    Response response = 2;
+}

@@ -66,18 +66,6 @@ func WriteTCP(wr *bufio.Writer, message *pb.Message) (err error) {
 	for i := range out {
 		buf[i+HeaderSize] = out[i]
 	}
-	//dst := bytes.NewBuffer(buf[HeaderSize:])
-	//src := bytes.NewBuffer(out)
-	//
-	//n, err := io.CopyN(dst, src, int64(bodyLen))
-	//if err != nil {
-	//	log.Errorf("CopyN err:", err)
-	//	return
-	//}
-	//if n != int64(bodyLen) {
-	//	err = fmt.Errorf("copy only %d bytes", n)
-	//	return
-	//}
 	nn, err := wr.Write(buf)
 	if err != nil {
 		log.Errorf("Write err:", err)

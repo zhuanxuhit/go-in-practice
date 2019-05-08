@@ -1,0 +1,31 @@
+syntax = "proto3";
+package tutorial;
+
+enum Message {
+    Unknow = 0;
+    // request
+    Message_XX1Request = 0x00000001;
+    Message_XX2Request = 0x00000002;
+
+    // response
+    Message_XX1Response = 0x00100001;
+    Message_XX2Response = 0x00100002;
+}
+
+message XX1Request {
+    string name = 1;
+}
+message XX2Request {
+    string name = 1;
+}
+
+message XX1Response {
+    string name = 1;
+}
+message XX2Response {
+    string name = 1;
+}
+message MessageHeader {
+    Message message_type = 1;
+    int32 message_length = 2;
+}

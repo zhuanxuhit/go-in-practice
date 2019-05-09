@@ -11,14 +11,12 @@ enum Message {
     Message_XX1Response = 0x00100001;
     Message_XX2Response = 0x00100002;
 }
-
 message XX1Request {
     string name = 1;
 }
 message XX2Request {
     string name = 1;
 }
-
 message XX1Response {
     string name = 1;
 }

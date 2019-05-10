@@ -60,7 +60,7 @@ func serveTCP(conn *net.TCPConn) {
 	log.Infof("\nheader is:%v", strings.Join(header, "\n"))
 	log.Infof("body is:%q", peek)
 
-	responseBegin := fmt.Sprintf("%s %d %s", proto, 200, "ok")
+	responseBegin := fmt.Sprintf("%s %d %s", "HTTP/1.1", 200, "ok")
 	responseHeader := []string{
 		"content-type: application/json",
 	}

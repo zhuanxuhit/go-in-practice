@@ -2,6 +2,35 @@ syntax = "proto3";
 package v1;
 
 import "google/protobuf/timestamp.proto";
+import "google/api/annotations.proto";
+import "protoc-gen-swagger/options/annotations.proto";
+
+
+option (grpc.gateway.protoc_gen_swagger.options.openapiv2_swagger) = {
+	info: {
+	    version: "0.1";
+		title: "Cache service";
+        contact: {
+            name: "cache project";
+            url: "https://github.com/zhuanxuhit/go-in-practice/wheel/rpc/grpc/cache";
+            email: "893051481@qq.com";
+        };
+    };
+    schemes: HTTP;
+    consumes: "application/json";
+    produces: "application/json";
+    responses: {
+        key: "404";
+        value: {
+            description: "Returned when the resource does not exist.";
+            schema: {
+                json_schema: {
+                    type: STRING;
+                }
+            }
+        }
+    }
+};
 
 message StoreReq {
     string key = 1;
@@ -18,7 +47,14 @@ message GetResp {
 
 service Cache {
     rpc Store (StoreReq) returns (StoreResp) {
+        option (google.api.http) = {
+            post: "/v1/cache"
+            body: "*"
+        };
     }
     rpc Get (GetReq) returns (GetResp) {
+        option (google.api.http) = {
+            get: "/v1/cache/{key}"
+        };
     }
 }

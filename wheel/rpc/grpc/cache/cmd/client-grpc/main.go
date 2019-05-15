@@ -4,7 +4,9 @@ import (
 	"context"
 	"flag"
 	"github.com/zhuanxuhit/go-in-practice/wheel/rpc/grpc/cache/pkg/api/v1"
+	"github.com/zhuanxuhit/go-in-practice/wheel/rpc/grpc/cache/pkg/protocol/grpc/interceptor/client"
 	"google.golang.org/grpc"
+	"google.golang.org/grpc/metadata"
 	"log"
 	"time"
 )
@@ -15,7 +17,7 @@ func main() {
 	flag.Parse()
 
 	// Set up a connection to the server.
-	conn, err := grpc.Dial(*address, grpc.WithInsecure())
+	conn, err := grpc.Dial(*address, grpc.WithInsecure(), client.WithClientTimeInterceptor())
 	if err != nil {
 		log.Fatalf("did not connect: %v", err)
 	}
@@ -23,8 +25,11 @@ func main() {
 
 	c := v1.NewCacheClient(conn)
 
-	ctx, cancel := context.WithTimeout(context.Background(), 5*time.Second)
-	defer cancel()
+	ctx, _ := context.WithTimeout(context.Background(), 1*time.Second)
+	//defer cancel()
+
+	// metadata
+	ctx = metadata.NewOutgoingContext(ctx, metadata.Pairs("test-run","1"))
 
 	key := "v1"
 	val := "我是v1版本store"
@@ -35,6 +40,7 @@ func main() {
 	if err != nil {
 		log.Fatalf("Store failed: %v", err)
 	}
+	ctx, _ = context.WithTimeout(context.Background(), 1*time.Second)
 	resp, err := c.Get(ctx, &v1.GetReq{Key: key})
 	if err != nil {
 		log.Fatalf("Store failed: %v", err)

@@ -1,0 +1,111 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "Cache service",
+    "version": "0.1",
+    "contact": {
+      "name": "cache project",
+      "url": "https://github.com/zhuanxuhit/go-in-practice/wheel/rpc/grpc/cache",
+      "email": "893051481@qq.com"
+    }
+  },
+  "schemes": [
+    "http"
+  ],
+  "consumes": [
+    "application/json"
+  ],
+  "produces": [
+    "application/json"
+  ],
+  "paths": {
+    "/v1/cache": {
+      "post": {
+        "operationId": "Store",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1StoreResp"
+            }
+          },
+          "404": {
+            "description": "Returned when the resource does not exist.",
+            "schema": {
+              "format": "string"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/v1StoreReq"
+            }
+          }
+        ],
+        "tags": [
+          "Cache"
+        ]
+      }
+    },
+    "/v1/cache/{key}": {
+      "get": {
+        "operationId": "Get",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1GetResp"
+            }
+          },
+          "404": {
+            "description": "Returned when the resource does not exist.",
+            "schema": {
+              "format": "string"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "key",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "tags": [
+          "Cache"
+        ]
+      }
+    }
+  },
+  "definitions": {
+    "v1GetResp": {
+      "type": "object",
+      "properties": {
+        "val": {
+          "type": "string",
+          "format": "byte"
+        }
+      }
+    },
+    "v1StoreReq": {
+      "type": "object",
+      "properties": {
+        "key": {
+          "type": "string"
+        },
+        "val": {
+          "type": "string",
+          "format": "byte"
+        }
+      }
+    },
+    "v1StoreResp": {
+      "type": "object"
+    }
+  }
+}

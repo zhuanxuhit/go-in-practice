@@ -4,7 +4,9 @@ import (
 	"context"
 	"github.com/zhuanxuhit/go-in-practice/wheel/rpc/grpc/cache/pkg/api/v1"
 	"google.golang.org/grpc/codes"
+	"google.golang.org/grpc/metadata"
 	"google.golang.org/grpc/status"
+	"log"
 	"sync"
 )
 
@@ -20,6 +22,15 @@ func NewCacheServiceServer() v1.CacheServer {
 }
 
 func (server *cacheServiceServer) Store(ctx context.Context, req *v1.StoreReq) (*v1.StoreResp, error) {
+	if md, ok := metadata.FromIncomingContext(ctx); ok {
+		if val, ok1 := md["test-run"]; ok1 {
+			if len(val) > 0 && val[0] == "1" {
+				// 不进行请求，是一个测试，直接返回
+				log.Print("test-run")
+				return &v1.StoreResp{}, nil
+			}
+		}
+	}
 	server.mutex.Lock()
 	server.store[req.Key] = req.Val
 	server.mutex.Unlock()

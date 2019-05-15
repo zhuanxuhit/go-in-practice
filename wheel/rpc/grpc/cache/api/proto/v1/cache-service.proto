@@ -1,0 +1,24 @@
+syntax = "proto3";
+package v1;
+
+import "google/protobuf/timestamp.proto";
+
+message StoreReq {
+    string key = 1;
+    bytes val = 2;
+}
+message StoreResp {
+}
+message GetReq {
+    string key = 1;
+}
+message GetResp {
+    bytes val = 1;
+}
+
+service Cache {
+    rpc Store (StoreReq) returns (StoreResp) {
+    }
+    rpc Get (GetReq) returns (GetResp) {
+    }
+}

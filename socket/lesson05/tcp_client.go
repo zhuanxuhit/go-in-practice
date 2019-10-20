@@ -14,6 +14,19 @@ func init() {
 	flag.IntVar(&port, "port", 12345, "port")
 }
 
+func writeAll(fd int, buf []byte) bool {
+	for len(buf) > 0 {
+		n, err := syscall.Write(fd, buf)
+		if err != nil {
+			log.Println("send error:", err)
+			return false
+		}
+		log.Println("send into buffer ", n)
+		buf = buf[n:]
+	}
+	return true
+}
+
 func sendData(fd int) {
 	const MessageSize = 1024
 	var query [MessageSize + 1]byte
@@ -21,19 +34,7 @@ func sendData(fd int) {
 		query[i] = 'a'
 	}
 	query[MessageSize] = '0'
-
-	remaining := len(query)
-	cp := query[0:]
-	for remaining > 0 {
-		nWritten, err := syscall.Write(fd, cp)
-		if err != nil {
-			log.Println("send error:", err)
-			return
-		}
-		log.Println("send into buffer ", nWritten)
-		remaining -= nWritten
-		cp = cp[nWritten:]
-	}
+	writeAll(fd, query[0:])
 }
 
 func client(port int) {

@@ -1,13 +1,13 @@
 package main
 
 import (
+	"encoding/json"
+	"github.com/golang/protobuf/proto"
+	plugin "github.com/golang/protobuf/protoc-gen-go/plugin"
 	"io/ioutil"
+	"log"
 	"os"
 	"strings"
-	"log"
-	plugin "github.com/golang/protobuf/protoc-gen-go/plugin"
-	"github.com/golang/protobuf/proto"
-	"encoding/json"
 )
 
 func Error(err error, msgs ...string) {

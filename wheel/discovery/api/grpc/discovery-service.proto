@@ -1,0 +1,48 @@
+syntax = "proto3";
+package grpc;
+
+import "google/protobuf/timestamp.proto";
+
+message RegisterReq {
+    string region = 1;
+    string zone = 2;
+    string env = 3;
+    string app_id = 4;
+    string hostname = 5;
+    uint32 status = 6;
+    repeated string addr = 7;
+    string version = 8;
+    string metadata = 9;
+    bool replication = 10;
+    google.protobuf.Timestamp latest_timestamp = 11;
+    google.protobuf.Timestamp dirty_timestamp = 12;
+}
+
+message RegisterResp {
+}
+
+message CancelReq {
+    string region = 1;
+    string zone = 2;
+    string env = 3;
+    string app_id = 4;
+    string hostname = 5;
+    uint32 status = 6;
+    repeated string addr = 7;
+    string version = 8;
+    string metadata = 9;
+    bool replication = 10;
+    google.protobuf.Timestamp latest_timestamp = 11;
+    google.protobuf.Timestamp dirty_timestamp = 12;
+}
+
+message CancelResp {
+}
+
+
+service Discovery {
+    rpc Register (RegisterReq) returns (RegisterResp) {
+    }
+    rpc Cancel (CancelReq) returns (CancelResp) {
+    }
+}

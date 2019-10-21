@@ -2,8 +2,8 @@ package main
 
 import (
 	"github.com/golang/protobuf/proto"
+	example "github.com/zhuanxuhit/go-in-practice/proto/test"
 	"log"
-	"awesomeProject/go-in-practice/proto/test"
 	"fmt"
 	"io/ioutil"
 )

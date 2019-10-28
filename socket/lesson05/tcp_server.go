@@ -39,9 +39,10 @@ func readn(fd int, buf []byte, size int) (int, error) {
 func readData(sockfd int) {
 	var buf [1024]byte
 	times := 0
+	// /usr/local/opt/go/libexec/src/internal/poll/fd_unix.go
 	for {
 		log.Printf("block in read\n")
-		n, err := readn(sockfd, buf[0:], 1024)
+		n, err := readn(sockfd, buf[:], 1024)
 		if n == 0 {
 			return
 		}
